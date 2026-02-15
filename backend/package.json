@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
@@ -16,8 +17,13 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "express-oauth2-jwt-bearer": "^1.7.4",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.11"
   }
 }
