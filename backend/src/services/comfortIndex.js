@@ -1,10 +1,10 @@
 class ComfortIndexCalculator {
   calculate(weatherData) {
-    const temp = weatherData.main.temp - 273.15; //kelvin to Celsius
+    const temp = weatherData.main.temp - 273.15;
     const humidity = weatherData.main.humidity;
     const windSpeed = weatherData.wind.speed;
     const pressure = weatherData.main.pressure;
-    const visibility = weatherData.visibility / 1000; //meters to km
+    const visibility = weatherData.visibility / 1000;
     const cloudiness = weatherData.clouds.all;
 
     const tempScore = this.calculateTemperatureScore(temp);

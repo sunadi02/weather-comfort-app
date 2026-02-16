@@ -104,6 +104,14 @@ Run tests:
 npm test
 ```
 
+Test coverage:
+- Unit tests for comfort index calculation
+- Integration tests for weather service
+- API route handler tests
+- Cache behavior validation
+- Error handling scenarios
+```
+
 ## Dependencies
 
 - express: Web framework

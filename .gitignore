@@ -8,3 +8,4 @@ dist-ssr/
 coverage/
 .vscode/
 .idea/
+.auth0/config.json

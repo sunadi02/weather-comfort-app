@@ -47,7 +47,6 @@ Temperature receives highest weight as it most directly affects thermal comfort.
 - Vue 3 (Composition API)
 - Tailwind CSS with dark mode
 - Auth0 authentication
-- Chart.js for visualizations
 - Axios for API requests
 
 ## Setup Instructions
@@ -78,6 +77,7 @@ Temperature receives highest weight as it most directly affects thermal comfort.
 6. Restrict Signups:
    - Go to Authentication > Database > Username-Password-Authentication
    - Toggle "Disable Sign Ups" to ON
+   - Only whitelisted users created manually can log in
 7. Create Test User:
    - Email: `careers@fidenz.com`
    - Password: `Pass#fidenz`
@@ -104,6 +104,11 @@ AUTH0_AUDIENCE=https://weather-comfort-api
 Start backend server:
 ```bash
 npm run dev
+```
+
+Run tests:
+```bash
+npm test
 ```
 
 **Frontend:**
@@ -168,6 +173,13 @@ Uses Auth0 with OAuth 2.0 flow:
 ## Project Structure
 ```
 weather-comfort-app/
+├── .auth0/
+│   ├── README.md                # Auth0 automation guide
+│   ├── config.json              # Deploy CLI configuration
+│   ├── api.json                 # API resource settings
+│   ├── client.json              # SPA client configuration
+│   ├── database.json            # Database with signups disabled
+│   └── tenant.json              # MFA and tenant settings
 ├── backend/
 │   ├── data/
 │   │   └── cities.json          # City IDs for OpenWeatherMap
@@ -177,10 +189,13 @@ weather-comfort-app/
 │   │   ├── middleware/
 │   │   │   └── auth.js          # JWT validation
 │   │   ├── routes/
-│   │   │   └── weather.js       # API routes
+│   │   │   ├── weather.js       # API routes
+│   │   │   └── weather.test.js  # Route tests
 │   │   ├── services/
-│   │   │   ├── comfortIndex.js  # Scoring algorithm
-│   │   │   └── weatherService.js # API integration
+│   │   │   ├── comfortIndex.js       # Scoring algorithm
+│   │   │   ├── comfortIndex.test.js  # Algorithm tests
+│   │   │   ├── weatherService.js     # API integration
+│   │   │   └── weatherService.test.js # Service tests
 │   │   └── server.js            # Express app entry
 │   ├── .env.example
 │   ├── jest.config.js
@@ -191,9 +206,12 @@ weather-comfort-app/
 │   │   │   └── index.js         # Auth0 setup
 │   │   ├── components/
 │   │   │   ├── AppHeader.vue
+│   │   │   ├── ErrorDisplay.vue
 │   │   │   ├── FilterBar.vue
+│   │   │   ├── LoadingSpinner.vue
 │   │   │   ├── TemperatureChart.vue
-│   │   │   └── WeatherTable.vue
+│   │   │   ├── WeatherTable.vue
+│   │   │   └── WeatherTableView.vue
 │   │   ├── composables/
 │   │   │   ├── useDarkMode.js
 │   │   │   └── useWeather.js
@@ -251,17 +269,18 @@ GET  /api/weather/cache/status    - Cache statistics (public)
 - Dark mode support
 - Search by city/country
 - Sort by 7 criteria (rank, name, country, temperature, humidity, wind, score)
-- Temperature trend visualization
+- Table and grid view toggle
+- Temperature comparison chart
+- Comprehensive test suite
 - Last updated timestamp
 
 ## Known Limitations
 
 - In-memory cache (lost on restart, not distributed)
 - OpenWeatherMap free tier: 60 calls/min
-- Temperature trends use mock data (historical API requires paid tier)
 - Fixed comfort algorithm (no user customization)
 - 24 cities maximum (expandable but affects performance)
-- Weather data differences from Google (different providers/update times)
+- Temperature chart displays current temperatures only (historical data requires paid API tier)
 
 ## Development
 
@@ -281,13 +300,39 @@ Frontend runs on `http://localhost:5173`
 
 ## Testing
 
-Run unit tests for comfort index calculator:
+Run backend unit and integration tests:
 ```bash
 cd backend
 npm test
 ```
 
-Coverage includes all scoring functions and edge cases.
+Test coverage includes:
+- Comfort index calculation and all scoring functions
+- Weather service data fetching and caching
+- API route handlers and error handling
+
+## Auth0 Automation
+
+For automated Auth0 configuration instead of manual setup:
+
+```bash
+npm install -g auth0-deploy-cli
+
+export AUTH0_DOMAIN=your-domain.auth0.com
+export AUTH0_CLIENT_ID=your_management_api_client_id
+export AUTH0_CLIENT_SECRET=your_management_api_client_secret
+
+a0deploy import --config_file .auth0/config.json --input_file .auth0
+```
+
+This automatically configures:
+- API resource settings
+- SPA client configuration
+- Database connection with signups disabled
+- Email MFA enabled
+- Password policies and security settings
+
+See `.auth0/README.md` for full details and Terraform alternative.
 
 ## Production Build
 
