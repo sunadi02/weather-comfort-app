@@ -6,6 +6,7 @@ const cities = require('../../data/cities.json');
 
 class WeatherService {
   constructor() {
+    //5min cache
     this.cache = new NodeCache({ stdTTL: config.cacheTTL });
     this.apiKey = config.openWeatherApiKey;
     this.baseURL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -22,6 +23,7 @@ class WeatherService {
     const weatherPromises = cities.map(city => this.fetchWeatherForCity(city));
     const results = await Promise.all(weatherPromises);
     
+    //calculate comfort scores
     const processedData = results
       .filter(r => r !== null)
       .map(data => this.processWeatherData(data))

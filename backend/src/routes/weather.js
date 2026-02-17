@@ -3,6 +3,7 @@ const router = express.Router();
 const weatherService = require('../services/weatherService');
 const { checkJwt } = require('../middleware/auth');
 
+//protected endpoint requiring auth0 jwt token
 router.get('/cities', checkJwt, async (req, res) => {
   try {
     const result = await weatherService.getWeatherForAllCities();

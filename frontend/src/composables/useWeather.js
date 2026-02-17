@@ -11,6 +11,7 @@ export function useWeather() {
     error.value = null;
     
     try {
+      //attach token to api requests
       apiService.setAuthToken(token);
       const response = await apiService.getWeatherData();
       cities.value = response.data;

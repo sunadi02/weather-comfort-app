@@ -96,6 +96,7 @@ function updateTimestamp() {
   });
 }
 
+//sorting and filtering
 const sortedAndFilteredCities = computed(() => {
   let result = cities.value;
 

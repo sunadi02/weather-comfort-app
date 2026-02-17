@@ -14,6 +14,7 @@ class ComfortIndexCalculator {
     const visibilityScore = this.calculateVisibilityScore(visibility);
     const cloudinessScore = this.calculateCloudinessScore(cloudiness);
 
+    //weighted formula: temp(30%) + humidity(25%) + wind(15%) + pressure(10%) + visibility(10%) + cloudiness(10%)
     const comfortScore = (
       tempScore * 0.30 +
       humidityScore * 0.25 +

@@ -1,14 +1,13 @@
-import { ref, onMounted } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 export function useDarkMode() {
-  const isDark = ref(false);
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = ref(
+    savedTheme === 'dark' || 
+    (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  );
 
-  const toggleDark = () => {
-    isDark.value = !isDark.value;
-    updateTheme();
-  };
-
-  const updateTheme = () => {
+  watchEffect(() => {
     if (isDark.value) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -16,14 +15,11 @@ export function useDarkMode() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-  };
-
-  onMounted(() => {
-    const savedTheme = localStorage.getItem('theme');
-    isDark.value = savedTheme === 'dark' || 
-      (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    updateTheme();
   });
+
+  const toggleDark = () => {
+    isDark.value = !isDark.value;
+  };
 
   return {
     isDark,
