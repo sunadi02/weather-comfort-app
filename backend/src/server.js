@@ -13,7 +13,13 @@ const limiter = rateLimit({
 });
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://weather-comfort-app-eight.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(limiter);
 
