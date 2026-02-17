@@ -20,21 +20,6 @@
           Sign In
         </button>
 
-        <div class="relative my-6">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">OR</span>
-          </div>
-        </div>
-
-        <button
-          @click="signup"
-          class="w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors"
-        >
-          Sign Up
-        </button>
       </div>
     </div>
   </div>
@@ -47,9 +32,5 @@ const { loginWithRedirect } = useAuth0();
 
 const login = () => {
   loginWithRedirect();
-};
-
-const signup = () => {
-  loginWithRedirect({ authorizationParams: { screen_hint: 'signup' } });
 };
 </script>

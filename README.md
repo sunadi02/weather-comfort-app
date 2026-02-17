@@ -166,6 +166,8 @@ Uses Auth0 with OAuth 2.0 flow:
 4. Token validated on each protected API request
 5. Public signups disabled (whitelist only)
 
+Auth0 does not allow email MFA as the sole factor for security reasons. I enabled both OTP and email MFA, which is the closest possible configuration.
+
 **Test Credentials:**
 - Email: `careers@fidenz.com`
 - Password: `Pass#fidenz`
