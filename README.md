@@ -6,6 +6,25 @@ A full-stack application that ranks cities based on a custom comfort index calcu
 
 This application fetches weather data from OpenWeatherMap API, processes it using a custom algorithm, and displays ranked results with authentication and caching.
 
+## Screenshots
+
+#### Login Page - Desktop
+![Login Page Desktop](screenshots/login-desktop.png)
+#### Auth0 Login Page
+![Auth0 Login](screenshots/Auth0-login.png)
+#### Grid View - Desktop 
+![Dashboard Grid View](screenshots/dashboard-grid.png)
+#### Table View
+![Dashboard Table View](screenshots/dashboard-table.png)
+#### Desktop (Dark Mode)
+![Dark Mode](screenshots/dashboard-dark.png)
+#### Mobile (Responsive Design)
+![Dashboard Table View Mobile](screenshots/dashboard-mobile.png)
+#### Search and Filter
+![Search and Filter](screenshots/search-filter.png)
+#### Temperature Comparison Chart
+![Temperature Chart](screenshots/temperature-chart.png)
+
 ## Comfort Index Algorithm
 
 The comfort score (0-100) uses six weighted parameters:
